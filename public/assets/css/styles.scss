@@ -1,0 +1,170 @@
+@import "partials/chop_utilities";
+
+$primary-text-color: #00FF39; 
+$primary-font-family: Courier; 
+
+$primary-text-disabled-color: #666;
+
+@include reset();
+
+html{
+	background-color: #000;
+}
+h2{
+	
+}
+				
+.wrap{
+	position: relative;
+	width: 90%;
+	max-width: 1280px;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	background-color: #000;
+	
+	color: $primary-text-color;
+	font-family: $primary-font-family;
+	
+	
+	@media screen and (max-width: 920px) {
+	
+		width: 100%;
+	}
+}	
+
+pre{
+	@media screen and (max-width: 480px) {
+	
+		font-size: 10px;
+	}	
+}
+
+.console{
+	width: 50%;
+	float: right;
+	
+}
+.day{
+	float: left;	
+	
+	box-sizing: border-box;
+	width: 20%;
+
+	
+	border-right: 1px solid $primary-text-color;
+	
+	&:last-child{
+		border-right: none
+	}
+	
+	&.disabled{
+		color: $primary-text-disabled-color;
+
+		
+		.task{
+				border-bottom: 1px dotted $primary-text-disabled-color;
+		}
+	}
+	
+ 	@media handheld and (max-width: 480px), screen and (max-device-width: 480px), screen and (max-width: 600px) {
+		float: none;
+		width: 100%;
+		
+		border-right: none
+	}
+	
+	
+	h2{
+		
+		text-align: center;
+		text-transform: uppercase;
+		font-weight: normal;
+		text-shadow: 0px 0px 20px darken($primary-text-color, 10%);
+	}
+	
+	h6{
+		
+		text-align: center;
+		
+	}
+
+
+}			
+
+.tasklist{
+	
+	&.disabled{
+		
+		.task{
+			color: #666;
+		}
+	}
+	
+	
+	
+	input{
+		box-sizing: border-box;	
+		width: 90%;
+		margin: {
+			right: .4em;
+			left: .4em;			
+		}
+		
+		color: $primary-text-color;
+			font-family: Courier;
+		background: none;
+		border: none;
+		outline: none
+	}
+	
+}
+
+@-webkit-keyframes rot {
+ from {
+   -webkit-transform: rotate(0deg);
+ }
+ to {
+   -webkit-transform: rotate(360deg);
+ }
+}
+
+
+.task{
+	
+	box-sizing: border-box;	
+	height: 2em;
+	margin: {
+		right: .4em;
+		left: .4em;			
+		
+		
+	}
+	
+	border-bottom: 1px dotted $primary-text-color;
+	
+	line-height: 30px;
+	font-size: 0.8em;
+	
+	&.completed{
+		text-decoration: line-through;
+	}
+	
+	.processspinner{
+		float: right;
+		width: 1em;
+		-webkit-animation-name: rot;
+		 -webkit-animation-duration: 1s;
+ -webkit-animation-iteration-count: 99;
+		 -webkit-animation-timing-function: linear;
+	
+	
+		
+	}
+	
+}
+
+.console{
+	font-size: 0.8em;
+}

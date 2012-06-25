@@ -1,0 +1,136 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+html {
+  background-color: #000; }
+
+.wrap {
+  position: relative;
+  width: 90%;
+  max-width: 1280px;
+  height: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #000;
+  color: #00ff39;
+  font-family: Courier; }
+  @media screen and (max-width: 920px) {
+    .wrap {
+      width: 100%; } }
+
+@media screen and (max-width: 480px) {
+  pre {
+    font-size: 10px; } }
+
+.console {
+  width: 50%;
+  float: right; }
+
+.day {
+  float: left;
+  box-sizing: border-box;
+  width: 20%;
+  border-right: 1px solid #00ff39; }
+  .day:last-child {
+    border-right: none; }
+  .day.disabled {
+    color: #666666; }
+    .day.disabled .task {
+      border-bottom: 1px dotted #666666; }
+  @media handheld and (max-width: 480px), screen and (max-device-width: 480px), screen and (max-width: 600px) {
+    .day {
+      float: none;
+      width: 100%;
+      border-right: none; } }
+  .day h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+    text-shadow: 0px 0px 20px #00cc2e; }
+  .day h6 {
+    text-align: center; }
+
+.tasklist.disabled .task {
+  color: #666; }
+.tasklist input {
+  box-sizing: border-box;
+  width: 90%;
+  margin-right: .4em;
+  margin-left: .4em;
+  color: #00ff39;
+  font-family: Courier;
+  background: none;
+  border: none;
+  outline: none; }
+
+@-webkit-keyframes rot {
+  from {
+    -webkit-transform: rotate(0deg); }
+
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+.task {
+  box-sizing: border-box;
+  height: 2em;
+  margin-right: .4em;
+  margin-left: .4em;
+  border-bottom: 1px dotted #00ff39;
+  line-height: 30px;
+  font-size: 0.8em; }
+  .task.completed {
+    text-decoration: line-through; }
+  .task .processspinner {
+    float: right;
+    width: 1em;
+    -webkit-animation-name: rot;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: 99;
+    -webkit-animation-timing-function: linear; }
+
+.console {
+  font-size: 0.8em; }

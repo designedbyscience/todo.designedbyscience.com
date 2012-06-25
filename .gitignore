@@ -1,0 +1,15 @@
+
+config.rb
+
+*.rvmrc
+
+#SASS Library
+partials
+
+#Sass Cache
+.sass-cache
+
+# Database files
+#########
+*.sqlite
+*.db

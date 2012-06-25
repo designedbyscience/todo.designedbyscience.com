@@ -1,0 +1,42 @@
+<div class="week">
+
+<%
+# startofweek = Time.now() - (Time.now().wday-1)*(60*60*24)
+  if Time.now().wday == 0
+    temptime = Time.now() - (Time.now().wday)*(60*60*24)
+  else       #This is for weekdays
+    temptime = Time.now() - (Time.now().wday-1)*(60*60*24)
+  end
+# temptime = Time.now() - (Time.now().wday-1)*(60*60*24)
+roundedtime = Time.new(temptime.year, temptime.month, temptime.day)
+startofweek = roundedtime
+
+
+
+for i in 0..4
+
+	thisday = startofweek + i*(60*60*24)
+	
+	
+
+%>
+
+<div class="day">
+	<h2><%= thisday.strftime("%A") %></h2>
+	<h6><%= thisday.strftime("%b %e") %></h6>
+	<div class="tasklist">
+		<input type="text" name="day<%= i %>_task" value="" class="task_entry" id="day<%= i %>_task" data-date="<%= thisday.to_s %>">
+		<% if @tasks_by_day %>
+			<% for task in @tasks_by_day[i] %>										
+				<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= task.task_text %></div>
+			<% end %>
+			
+			<% for emptytask in 0..(10-@tasks_by_day[i].length)  %>
+				<div class="task empty"></div>
+			<% end %>
+		<% end %>																											
+	</div>
+</div>
+
+<% end %>
+</div>

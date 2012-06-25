@@ -1,0 +1,16 @@
+<%= flash[:warn] %>
+<form action="/login" method="post">
+
+  <p>
+    <label for="user[email]">Email</label>
+    <input type="text" name="user[email]" value=""/>
+  </p>
+
+  <p>
+    <label for="user[password]">Password</label>
+    <input type="password" name="user[password]"/>
+  </p>
+
+  <input type="submit" value="Login"/>
+
+</form>
