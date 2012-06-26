@@ -8,16 +8,12 @@ require "dm-timestamps"
 require "dm-sqlite-adapter"
 
 
-require "PBKDF2"
+require "pbkdf2"
 require "bcrypt"
 require "securerandom"
 
 require 'rack-flash'
 require 'json'
-
-#require config file
-#require 'configatron'
-#require_relative "config"
 
 class User 
   include DataMapper::Resource

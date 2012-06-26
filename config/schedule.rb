@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-job_type :sinatra_script,  "cd :path && ruby script/:task"
+job_type :sinatra_script,  "cd :path && ruby scripts/:task"
 
 every 1.day, :at => '12:01 am' do
   sinatra_script "push_tasks.rb"
