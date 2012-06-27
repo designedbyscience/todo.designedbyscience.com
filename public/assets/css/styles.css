@@ -120,6 +120,7 @@ html {
   margin-right: .4em;
   margin-left: .4em;
   border-bottom: 1px dotted #00ff39;
+  overflow: hidden;
   line-height: 30px;
   font-size: 0.8em; }
   .task.completed {
