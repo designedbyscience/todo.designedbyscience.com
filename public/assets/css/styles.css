@@ -133,5 +133,9 @@ html {
     -webkit-animation-iteration-count: 99;
     -webkit-animation-timing-function: linear; }
 
+.user {
+  margin-top: 10px;
+  font-size: 10px; }
+
 .console {
   font-size: 0.8em; }
