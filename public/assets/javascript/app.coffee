@@ -87,9 +87,22 @@ completeTask = (task) ->
 			outputToConsole("task removed")
 	})
 
+uncompleteTask = (task) ->
+	task.classList.remove("completed")
+	id = task.getAttribute("data-id")
+	$.ajax({
+		url: "/todo/#{id}" 
+		type: "POST"
+		success: (data, textStatus, jqXHR) ->
+			outputToConsole("task removed")
+	})
+
 handleTaskListClick = (e) ->
 	if e.target.classList.contains("task") && !e.target.classList.contains("empty")
-		completeTask(e.target);		
+		if e.target.classList.contains("completed")
+			uncompleteTask(e.target)
+		else
+			completeTask(e.target)	
 
 addTaskListClickListener = (o) ->
 	o.addEventListener("click", handleTaskListClick, false)
