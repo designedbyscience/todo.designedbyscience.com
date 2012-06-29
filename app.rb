@@ -169,11 +169,18 @@ end
 
 post "/todo/:id" do
   task = Task.get(params[:id])
-  
-  if task.update(:completed => true)
-    { "success" => true, "id" => task.id}.to_json
+  if(task.completed)
+    if task.update(:completed => false)
+      { "success" => true, "id" => task.id}.to_json
+    else
+      { "success" => false, "error" => "Not saved.."}.to_json
+    end    
   else
-    { "success" => false, "error" => "Not saved.."}.to_json
+    if task.update(:completed => true)
+      { "success" => true, "id" => task.id}.to_json
+    else
+      { "success" => false, "error" => "Not saved.."}.to_json
+    end
   end
 end
 

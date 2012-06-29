@@ -32,6 +32,7 @@ addProcessingSpinner = (element) ->
 removeProcessingSpinner = (element) ->
 	spinner = element.querySelector(".processspinner")
 	element.removeChild(spinner)
+	element.classList.remove("processing")
 
 setDisabled = (tl) -> 
 	tl.classList.add("disabled")
@@ -70,7 +71,9 @@ addTask = (object, list) ->
 		type: "POST"
 		data: object
 		success: (data, textStatus, jqXHR) ->
+			json = $.parseJSON(data);
 			outputToConsole("task added")
+			newtask.setAttribute("data-id", json.id);
 			removeProcessingSpinner(newtask)
 	})
 	
@@ -84,7 +87,7 @@ completeTask = (task) ->
 		url: "/todo/#{id}" 
 		type: "POST"
 		success: (data, textStatus, jqXHR) ->
-			outputToConsole("task removed")
+			outputToConsole("task completed")
 	})
 
 uncompleteTask = (task) ->
@@ -94,7 +97,7 @@ uncompleteTask = (task) ->
 		url: "/todo/#{id}" 
 		type: "POST"
 		success: (data, textStatus, jqXHR) ->
-			outputToConsole("task removed")
+			outputToConsole("task uncompleted")
 	})
 
 handleTaskListClick = (e) ->
