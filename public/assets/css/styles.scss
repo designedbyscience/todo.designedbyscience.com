@@ -148,6 +148,12 @@ pre{
 	line-height: 30px;
 	font-size: 0.8em;
 	
+	cursor: pointer;
+	
+	&.empty{
+		cursor: default;
+	}
+	
 	&.completed{
 		text-decoration: line-through;
 	}
