@@ -1,5 +1,17 @@
 
 ##UI Functions
+updatePageTitle = (up) ->
+	if up
+		setTaskCount(1)
+	else
+		setTaskCount(-1)
+
+	taskcount = getTaskCount()
+	if  taskcount > 1
+		document.title = taskcount + " tasks :: todo.designedbyscience.com"
+	else
+		document.title = taskcount + " task :: todo.designedbyscience.com"
+		
 animateSpinner = () ->
 	i = 0
 	frames = ["/", "|", "\\", "-"]
@@ -65,6 +77,7 @@ addTask = (object, list) ->
 	newtask.innerHTML = object.task_text
 	addProcessingSpinner(newtask)
 	clearActiveInput();
+	updatePageTitle(true)
 	
 	$.ajax({
 		url: "/todo/"
@@ -83,6 +96,8 @@ addTask = (object, list) ->
 completeTask = (task) ->
 	task.classList.add("completed")
 	id = task.getAttribute("data-id")
+	updatePageTitle(false)
+	
 	$.ajax({
 		url: "/todo/#{id}" 
 		type: "POST"

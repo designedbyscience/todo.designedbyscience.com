@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title><%= Task.all(:completed => false).count %> tasks :::: todo.designedbyscience.com</title>
+	<title><%= Task.all(:completed => false).count %> tasks :: todo.designedbyscience.com</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="author" content="Eric Haseltine, eric@designedbyscience.com" />
 	<meta name="geo.country" content="US" />
@@ -51,7 +51,17 @@
 	
 	<script src="assets/javascript/app.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
-
+	
+	
+		taskcount = <%= Task.all(:completed => false).count %>;
+		
+		setTaskCount = function(i){
+			taskcount = taskcount + i;
+		}
+		
+		getTaskCount = function(){
+			return taskcount;
+		}
 	</script>
 </body>
 </html>
