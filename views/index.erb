@@ -2,7 +2,7 @@
 
 <%
 # startofweek = Time.now() - (Time.now().wday-1)*(60*60*24)
-  if Time.now().wday == 0
+  if Time.now().wday == 0 || Time.now().wday == 6
     temptime = Time.now() - (Time.now().wday)*(60*60*24)
   else       #This is for weekdays
     temptime = Time.now() - (Time.now().wday-1)*(60*60*24)

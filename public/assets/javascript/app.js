@@ -91,6 +91,11 @@
     var newtask;
     outputToConsole("Sending task...");
     newtask = list.querySelector(".empty");
+    if (!newtask) {
+      newtask = document.createElement("div");
+      newtask.classList.add("task");
+      list.appendChild(newtask);
+    }
     newtask.classList.add("processing");
     newtask.classList.remove("empty");
     newtask.innerHTML = object.task_text;
