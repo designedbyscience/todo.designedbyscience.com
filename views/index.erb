@@ -2,26 +2,39 @@
 
 <%
 # startofweek = Time.now() - (Time.now().wday-1)*(60*60*24)
-  if Time.now().wday == 0 || Time.now().wday == 6
+  # if Time.now().wday == 0 || Time.now().wday == 6
     temptime = Time.now() - (Time.now().wday)*(60*60*24)
-  else       #This is for weekdays
-    temptime = Time.now() - (Time.now().wday-1)*(60*60*24)
-  end
+  # else       #This is for weekdays
+    # temptime = Time.now() - (Time.now().wday-1)*(60*60*24)
+  # end
 # temptime = Time.now() - (Time.now().wday-1)*(60*60*24)
 roundedtime = Time.new(temptime.year, temptime.month, temptime.day)
 startofweek = roundedtime
 
+today = Time.now()
+# today = Time.now() - (60*60*24)
 
-
-for i in 0..4
+for i in 0..6
 
 	thisday = startofweek + i*(60*60*24)
 	
 	
-
+	if today.wday == 0 && (i == 5 || i == 6) 
+		hidden_class = "ws_only"
+	elsif today.wday == 0 && i == 4
+		hidden_class = "no_rb"
+	elsif today.wday == 6 && (i == 0 || i == 1) 
+		hidden_class = "ws_only"
+	elsif (today.wday != 0 && today.wday != 6) && (i == 0 || i == 6) 
+		hidden_class = "ws_only"
+	elsif (today.wday != 0 && today.wday != 6) && i == 5
+		hidden_class = "no_rb" 
+	else
+		hidden_class = ""
+	end
 %>
 
-<div class="day">
+<div class="day <%= hidden_class  %>">
 	<h2><%= thisday.strftime("%A") %></h2>
 	<h6><%= thisday.strftime("%b %e") %></h6>
 	<div class="tasklist">
