@@ -53,16 +53,13 @@ setDisabled = (tl) ->
 setCurrentDay = () ->
 	today = new Date();
 	
-	if today.getDay() == 0
-		activeInput = document.querySelectorAll(".task_entry")[0]
-	else
-		activeInput = document.querySelectorAll(".task_entry")[today.getDay()-1]
+	activeInput = document.querySelectorAll(".task_entry")[today.getDay()]
 	
 	activeInput.focus()
 	
 	tasklists = document.querySelectorAll(".day")	
 	#setTasklistDisabled tasklist for tasklist in .splice(0, today.getDay())
-	for tasklist, i in document.querySelectorAll(".day") when i < today.getDay()-1
+	for tasklist, i in document.querySelectorAll(".day") when i < today.getDay()
 		console.log(i)
 		setDisabled(tasklist)
 		
