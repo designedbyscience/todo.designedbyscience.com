@@ -4,3 +4,4 @@ CalDav feed
 Local Syncing (IndexedDB)
 Cache Manifest
 Repeating Tasks
+Expanded Tasks
