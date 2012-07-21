@@ -95,7 +95,7 @@ get "/" do
         # temptime = Time.now() - (Time.now().wday-1-i)*(60*60*24)
       # end
       roundedtime = Time.new(temptime.year, temptime.month, temptime.day)
-      tasks = Task.all(:due_date.gte => roundedtime-1, :due_date.lte => roundedtime + (60*60*24) -1, :order => [:completed.asc]  )
+      tasks = Task.all(:due_date.gte => roundedtime-1, :due_date.lte => roundedtime + (60*60*24) -1, :order => [:completed.asc, :task_text.asc]  )
       if tasks
           @tasks_by_day.push(tasks) 
         else
