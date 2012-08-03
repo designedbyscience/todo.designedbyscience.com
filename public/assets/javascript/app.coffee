@@ -23,9 +23,14 @@ updatePageTitle = (up) ->
 	taskcount = getTaskCount()
 	if  taskcount > 1
 		document.title = taskcount + " tasks :: todo.designedbyscience.com"
+		window.fluid?.dockBadge = taskcount + ""
 	else
 		document.title = taskcount + " task :: todo.designedbyscience.com"
+		window.fluid?.dockBadge = taskcount + ""		
 		
+# fluidDockIcon = (num) ->
+
+			
 animateSpinner = () ->
 	i = 0
 	frames = ["/", "|", "\\", "-"]
@@ -162,7 +167,7 @@ outputToConsole = (message) ->
 	
 ##Page Load Items	
 
-animateSpinner();
+#animateSpinner();
 setCurrentDay();
 
 document.addEventListener("keyup", handleEnterKey, false)

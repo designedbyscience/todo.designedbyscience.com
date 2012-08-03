@@ -16,7 +16,7 @@
   };
 
   updatePageTitle = function(up) {
-    var taskcount;
+    var taskcount, _ref, _ref1;
     if (up) {
       setTaskCount(1);
     } else {
@@ -24,9 +24,11 @@
     }
     taskcount = getTaskCount();
     if (taskcount > 1) {
-      return document.title = taskcount + " tasks :: todo.designedbyscience.com";
+      document.title = taskcount + " tasks :: todo.designedbyscience.com";
+      return (_ref = window.fluid) != null ? _ref.dockBadge = taskcount + "" : void 0;
     } else {
-      return document.title = taskcount + " task :: todo.designedbyscience.com";
+      document.title = taskcount + " task :: todo.designedbyscience.com";
+      return (_ref1 = window.fluid) != null ? _ref1.dockBadge = taskcount + "" : void 0;
     }
   };
 
@@ -190,8 +192,6 @@
     console.log(message);
     return true;
   };
-
-  animateSpinner();
 
   setCurrentDay();
 
