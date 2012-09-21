@@ -81,20 +81,24 @@
     };
 
     TodoApp.prototype.setCurrentDay = function() {
-      var day, day_num, i, today, _i, _len, _ref, _results;
+      var day, day_num, i, today, _i, _len, _ref;
       today = new Date();
       day_num = today.getDay();
       this.activeInput = document.querySelectorAll(".task_entry")[day_num];
       this.activeInput.focus();
       _ref = this.days;
-      _results = [];
       for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
         day = _ref[i];
         if (i < day_num) {
-          _results.push(day.disable());
+          day.disable();
         }
       }
-      return _results;
+      if (window.innerWidth <= 600) {
+        console.log(this.days[day_num].element.offsetTop);
+        return setTimeout(function() {
+          return window.scroll(0, app.days[day_num].element.offsetTop);
+        }, 10);
+      }
     };
 
     TodoApp.prototype.updatePageTitle = function(up) {

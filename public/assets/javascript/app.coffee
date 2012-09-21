@@ -47,7 +47,6 @@ class TodoApp
 
 		document.addEventListener("keyup", @handleEnterKey, false)
 
-
 	buildDay: (element) ->
 		new TaskDay(element);
 		
@@ -63,6 +62,16 @@ class TodoApp
 		@activeInput = document.querySelectorAll(".task_entry")[day_num]
 		@activeInput.focus()
 		day.disable() for day, i in @days when i < day_num;
+		
+		if window.innerWidth <= 600
+			console.log(@days[day_num].element.offsetTop)
+			setTimeout( () -> 
+				window.scroll(0, app.days[day_num].element.offsetTop)
+	
+			, 10)
+
+	
+		
 	
 	
 	updatePageTitle: (up) ->
