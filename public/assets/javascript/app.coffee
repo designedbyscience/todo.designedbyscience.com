@@ -91,19 +91,21 @@ class TodoApp
 			app.activeInput.object.addTask(task_object)
 
 
-
-
-
 class TaskDay
 	constructor: (@element) ->
 		@tasklist = new TaskList(@element.querySelector(".tasklist"));
+		@element.object = @
 
 	disable: () -> 
 		@element.classList.add("disabled")
+		console.log("Disabling Task List")
+		@tasklist.input.setAttribute("disabled");
+		# @tasklist.element.removeEventListener("click", @tasklist.handleClick, false)
 		removeTouchClickEventListener(@tasklist.element,@tasklist.handleClick);
 
 class TaskList
 	constructor: (@element) ->
+		@element.object = @
 		@tasks = @buildTasks();
 		@input = @element.querySelector("input");
 		@input.object = @
@@ -126,7 +128,6 @@ class TaskList
 
 	findTask: (id) ->
 		(task for task in @tasks when task.id is id)[0]
-
 
 	addTask: (object) ->
 		app.outputToConsole("Sending task...")	

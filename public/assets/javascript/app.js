@@ -136,10 +136,13 @@
     function TaskDay(element) {
       this.element = element;
       this.tasklist = new TaskList(this.element.querySelector(".tasklist"));
+      this.element.object = this;
     }
 
     TaskDay.prototype.disable = function() {
       this.element.classList.add("disabled");
+      console.log("Disabling Task List");
+      this.tasklist.input.setAttribute("disabled");
       return removeTouchClickEventListener(this.tasklist.element, this.tasklist.handleClick);
     };
 
@@ -151,6 +154,7 @@
 
     function TaskList(element) {
       this.element = element;
+      this.element.object = this;
       this.tasks = this.buildTasks();
       this.input = this.element.querySelector("input");
       this.input.object = this;
