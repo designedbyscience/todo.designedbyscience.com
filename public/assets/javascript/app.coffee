@@ -71,9 +71,6 @@ class TodoApp
 			, 10)
 
 	
-		
-	
-	
 	updatePageTitle: (up) ->
 		# setTaskCount and getTaskCount currently live on the page as functions, above this scope
 		if up
@@ -146,7 +143,7 @@ class TaskList
 			@element.appendChild(new_task_element)
 
 		task = new Task(new_task_element)
-		task.build(object.tast_text)
+		task.build(object.task_text)
 
 		spinner = new Spinner();
 
@@ -154,16 +151,21 @@ class TaskList
 		@input.value = "";
 		app.updatePageTitle(true)
 
-		$.ajax({
-			url: "/todo/"
-			type: "POST"
-			data: object
-			success: (data, textStatus, jqXHR) ->
-				json = $.parseJSON(data);
-				app.outputToConsole("task added")
-				task.set_id(json.id)
-				spinner.remove()
-		})
+		xhr = new XMLHttpRequest();
+		xhr.open("POST", "/todo/", true)		
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+		xhr.onload = (e) ->
+			if @status is 200
+				console.log(@response)
+				obj = JSON.parse(@response)
+				if obj.success 
+					app.outputToConsole("task added")
+					task.set_id(obj.id)
+					spinner.remove()
+
+		request_string = "task_text=" + object.task_text + "&due_date=" + object.due_date.toString()
+
+		xhr.send(request_string.replace(/\s/g, "+"))
 
 		true
 			
@@ -185,8 +187,8 @@ class Task
 		@element.innerHTML = text
 		
 	set_id: (id) ->
-		@element.setAttribute("data-id", json.id);
-		@id = json.id;		
+		@element.setAttribute("data-id", id);
+		@id = id;		
 	
 	toggle: () ->
 		if @completed
@@ -200,23 +202,32 @@ class Task
 		@element.classList.add("completed")
 		app.updatePageTitle(false);
 
-		$.ajax({
-			url: "/todo/#{@id}" 
-			type: "POST"
-			success: (data, textStatus, jqXHR) ->
-				app.outputToConsole("task completed")
-		})
+		xhr = new XMLHttpRequest();
+		xhr.open("POST", "/todo/#{@id}", true)		
+
+		xhr.onload = (e) ->
+			if @status is 200
+				obj = JSON.parse(@response)
+				if obj.success 
+					app.outputToConsole("task completed")
+		
+		xhr.send()		
 	
 	uncomplete: () ->
 		@element.classList.remove("completed")
 		app.updatePageTitle(true);
-					
-		$.ajax({
-			url: "/todo/#{@id}" 
-			type: "POST"
-			success: (data, textStatus, jqXHR) ->
-				app.outputToConsole("task uncompleted")
-		})
+
+		xhr = new XMLHttpRequest();
+		xhr.open("POST", "/todo/#{@id}", true)		
+
+		xhr.onload = (e) ->
+			if @status is 200
+				obj = JSON.parse(@response)
+				if obj.success 
+					app.outputToConsole("task uncompleted")
+		
+		xhr.send()
+							
 	
 ##Page Load Items	
 app = new TodoApp();

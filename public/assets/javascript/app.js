@@ -212,7 +212,7 @@
     };
 
     TaskList.prototype.addTask = function(object) {
-      var new_task_element, spinner, task;
+      var new_task_element, request_string, spinner, task, xhr;
       app.outputToConsole("Sending task...");
       new_task_element = this.element.querySelector(".empty");
       if (!new_task_element) {
@@ -220,23 +220,28 @@
         this.element.appendChild(new_task_element);
       }
       task = new Task(new_task_element);
-      task.build(object.tast_text);
+      task.build(object.task_text);
       spinner = new Spinner();
       task.element.appendChild(spinner.element);
       this.input.value = "";
       app.updatePageTitle(true);
-      $.ajax({
-        url: "/todo/",
-        type: "POST",
-        data: object,
-        success: function(data, textStatus, jqXHR) {
-          var json;
-          json = $.parseJSON(data);
-          app.outputToConsole("task added");
-          task.set_id(json.id);
-          return spinner.remove();
+      xhr = new XMLHttpRequest();
+      xhr.open("POST", "/todo/", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onload = function(e) {
+        var obj;
+        if (this.status === 200) {
+          console.log(this.response);
+          obj = JSON.parse(this.response);
+          if (obj.success) {
+            app.outputToConsole("task added");
+            task.set_id(obj.id);
+            return spinner.remove();
+          }
         }
-      });
+      };
+      request_string = "task_text=" + object.task_text + "&due_date=" + object.due_date.toString();
+      xhr.send(request_string.replace(/\s/g, "+"));
       return true;
     };
 
@@ -267,8 +272,8 @@
     };
 
     Task.prototype.set_id = function(id) {
-      this.element.setAttribute("data-id", json.id);
-      return this.id = json.id;
+      this.element.setAttribute("data-id", id);
+      return this.id = id;
     };
 
     Task.prototype.toggle = function() {
@@ -281,27 +286,39 @@
     };
 
     Task.prototype.complete = function() {
+      var xhr;
       this.element.classList.add("completed");
       app.updatePageTitle(false);
-      return $.ajax({
-        url: "/todo/" + this.id,
-        type: "POST",
-        success: function(data, textStatus, jqXHR) {
-          return app.outputToConsole("task completed");
+      xhr = new XMLHttpRequest();
+      xhr.open("POST", "/todo/" + this.id, true);
+      xhr.onload = function(e) {
+        var obj;
+        if (this.status === 200) {
+          obj = JSON.parse(this.response);
+          if (obj.success) {
+            return app.outputToConsole("task completed");
+          }
         }
-      });
+      };
+      return xhr.send();
     };
 
     Task.prototype.uncomplete = function() {
+      var xhr;
       this.element.classList.remove("completed");
       app.updatePageTitle(true);
-      return $.ajax({
-        url: "/todo/" + this.id,
-        type: "POST",
-        success: function(data, textStatus, jqXHR) {
-          return app.outputToConsole("task uncompleted");
+      xhr = new XMLHttpRequest();
+      xhr.open("POST", "/todo/" + this.id, true);
+      xhr.onload = function(e) {
+        var obj;
+        if (this.status === 200) {
+          obj = JSON.parse(this.response);
+          if (obj.success) {
+            return app.outputToConsole("task uncompleted");
+          }
         }
-      });
+      };
+      return xhr.send();
     };
 
     return Task;
