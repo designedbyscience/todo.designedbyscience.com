@@ -131,9 +131,6 @@ html {
   line-height: 30px;
   font-size: 0.8em;
   cursor: pointer; }
-  .task:hover {
-    position: absolute;
-    overflow: visible; }
   .task.empty {
     cursor: default; }
   .task.completed {
