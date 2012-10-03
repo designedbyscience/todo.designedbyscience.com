@@ -66,6 +66,7 @@
         return _results;
       }).call(this);
       document.addEventListener("keyup", this.handleEnterKey, false);
+      document.getElementById("previous").addEventListener("click", this.getDay, false);
     }
 
     TodoApp.prototype.buildDay = function(element) {
@@ -131,6 +132,30 @@
       }
     };
 
+    TodoApp.prototype.getDay = function(date) {
+      var day_string, month_string, xhr;
+      console.log(new Date(app.days[0].date - 1000 * 60 * 60 * 24));
+      date = new Date(app.days[0].date - 1000 * 60 * 60 * 24);
+      xhr = new XMLHttpRequest();
+      if (date.getMonth() < 9) {
+        month_string = "0" + (date.getMonth() + 1);
+      } else {
+        month_string = date.getMonth() + 1;
+      }
+      if (date.getDate() < 10) {
+        day_string = "0" + date.getDate();
+      } else {
+        day_string = date.getDate();
+      }
+      xhr.open("GET", "/todo/day/" + date.getFullYear() + month_string + day_string, true);
+      xhr.onload = function(e) {
+        if (this.status === 200) {
+          return console.log(this.response);
+        }
+      };
+      return xhr.send();
+    };
+
     return TodoApp;
 
   })();
@@ -140,6 +165,8 @@
     function TaskDay(element) {
       this.element = element;
       this.tasklist = new TaskList(this.element.querySelector(".tasklist"));
+      this.date = new Date(this.tasklist.input.getAttribute("data-js-date"));
+      console.log("@date: " + this.date);
       this.element.object = this;
     }
 

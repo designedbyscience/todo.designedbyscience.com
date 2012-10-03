@@ -46,6 +46,7 @@ class TodoApp
 		@days = (@buildDay day_element for day_element in document.querySelectorAll(".day"))
 
 		document.addEventListener("keyup", @handleEnterKey, false)
+		document.getElementById("previous").addEventListener("click", @getDay, false)
 
 	buildDay: (element) ->
 		new TaskDay(element);
@@ -95,11 +96,65 @@ class TodoApp
 			task_object = {task_text: task, due_date: task_date}
 		    # send to server
 			app.activeInput.object.addTask(task_object)
+			
+	getDay: (date) ->
+		
+		
+		#Manage CSS for the already displayed days
+		#If previous days hidden by css, show them.
+		
+		#Otherwise, grab day from server
+		
+		#Returned HTML
+		#Prepend or append to Week
+		#day = new TaskDay(new_element)
+		
+		console.log(new Date(app.days[0].date - 1000*60*60*24));
+		# escape(date)
+		# encodeURIComponent()
+		# @days.unshift(day)
+		#if previous day
+			#day.disable()
+			#remove extra
+
+		date = 	new Date(app.days[0].date - 1000*60*60*24);
+			
+			
+		xhr = new XMLHttpRequest();
+		
+
+		if date.getMonth() < 9
+			month_string = "0" + (date.getMonth() + 1)
+		else
+			month_string = date.getMonth() + 1
+		
+		
+		if date.getDate() < 10
+			day_string = "0" + date.getDate()
+		else
+			day_string = date.getDate()
+			
+		# day_string = "0" + date.getDate().toString if date.getDate() < 10 else date.getDate()
+		# month_string = "0" + date.getMonth().toString if date.getMonth() < 10 else date.getMonth()		
+		
+		xhr.open("GET", "/todo/day/"+date.getFullYear()+month_string+day_string, true)		
+		# xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+		xhr.onload = (e) ->
+			if @status is 200
+				console.log(@response)
+		# 
+		# request_string = "task_text=" + object.task_text + "&due_date=" + object.due_date.toString()
+		# 
+		xhr.send()
 
 
 class TaskDay
 	constructor: (@element) ->
 		@tasklist = new TaskList(@element.querySelector(".tasklist"));
+		# 2012-09-29 00:00:00  -- 19
+		# temp_date = @tasklist.input.getAttribute("data-date");
+		@date = new Date(@tasklist.input.getAttribute("data-js-date"););
+		console.log("@date: " + @date);
 		@element.object = @
 
 	disable: () -> 
