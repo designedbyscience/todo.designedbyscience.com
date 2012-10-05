@@ -48,7 +48,7 @@
 
 		<%= yield %>
 		<div style="clear:both;"></div>
-		<div class="user">current user: <%= User.first(:token => session[:user]).email if session[:user]%></div>
+		<div class="user">autodeployed :: current user: <%= User.first(:token => session[:user]).email if session[:user]%></div>
 	</div>
 	<!-- // <script src="assets/javascript/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script> -->
 	
