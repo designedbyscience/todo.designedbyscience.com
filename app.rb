@@ -185,10 +185,6 @@ post "/todo/:id" do
     end
   end
 end
-#!/bin/sh
-
-# cd $1
-# git pull origin $2
 
 post "/deploy/:key" do
   #Github IPs 207.97.227.253, 50.57.128.197, 108.171.174.178, 127.0.0.1
