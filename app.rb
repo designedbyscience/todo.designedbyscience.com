@@ -148,6 +148,7 @@ get "/todo/:id" do
 end
 
 post "/todo/" do
+  protected!  
     if params[:_method] == "put"
       if update_task(params)
         {"success" => true}.to_json
@@ -168,6 +169,7 @@ post "/todo/" do
 end
 
 post "/todo/:id" do
+    protected!
   task = Task.get(params[:id])
   if(task.completed)
     if task.update(:completed => false)
@@ -182,5 +184,22 @@ post "/todo/:id" do
       { "success" => false, "error" => "Not saved.."}.to_json
     end
   end
+end
+#!/bin/sh
+
+# cd $1
+# git pull origin $2
+
+post "/deploy/:key" do
+  #Github IPs 207.97.227.253, 50.57.128.197, 108.171.174.178, 127.0.0.1
+  
+  iplist = ["207.97.227.253", "50.57.128.197", "108.171.174.178", "127.0.0.1"]
+  puts request.ip
+  puts Dir.pwd
+  if(params[:key] == "yTLr8Vy6AGADyC" && iplist.include?(request.ip))
+    exec("./deploy.sh #{Dir.pwd}")
+    
+  end
+  # deploy.sh 
 end
 
