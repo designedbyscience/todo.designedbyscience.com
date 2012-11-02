@@ -1,3 +1,6 @@
+<div id="previous" class="previous">Prev</div>
+<div id="next" class="next">Next</div>
+<div style="clear:both;"></div>
 <div class="week">
 
 <%
@@ -38,7 +41,7 @@ for i in 0..6
 	<h2><%= thisday.strftime("%A") %></h2>
 	<h6><%= thisday.strftime("%b %e") %></h6>
 	<div class="tasklist">
-		<input type="text" name="day<%= i %>_task" value="" class="task_entry" id="day<%= i %>_task" data-date="<%= thisday.to_s %>">
+		<input type="text" name="day<%= i %>_task" value="" class="task_entry" id="day<%= i %>_task" data-date="<%= thisday.to_s %>" data-js-date="<%= thisday.rfc2822() %>">
 		<% if @tasks_by_day %>
 			<% for task in @tasks_by_day[i] %>										
 				<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= task.task_text %></div>

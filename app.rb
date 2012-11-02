@@ -1,4 +1,3 @@
-
 require "sinatra"
 require "sinatra/reloader" 
 require "dm-core"
@@ -76,9 +75,9 @@ helpers do
   def authorized?
     # @auth ||=  Rack::Auth::Basic::Request.new(request.env)
     # @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == ['admin', 'admin']    
-
-    session[:user]
-  
+    # 
+    # session[:user]
+    true
   end
 
 end
@@ -197,5 +196,18 @@ post "/deploy/:key" do
     
   end
   # deploy.sh 
+end
+
+
+get "/todo/day/:date" do
+    @time = Time.new(params[:date][0,4].to_i, params[:date][4,2].to_i, params[:date][6,3].to_i)
+  
+    #render day
+
+    @tasks = Task.all(:due_date.gte => @time-1, :due_date.lte => @time + (60*60*24) -1, :order => [:completed.asc, :task_text.asc]  )
+
+    erb :_day, :layout => false
+  
+  
 end
 
