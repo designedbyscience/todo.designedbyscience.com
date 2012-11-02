@@ -46,7 +46,8 @@ class TodoApp
 		@days = (@buildDay day_element for day_element in document.querySelectorAll(".day"))
 
 		document.addEventListener("keyup", @handleEnterKey, false)
-		document.getElementById("previous").addEventListener("click", @getDay, false)
+		document.getElementById("previous").addEventListener("click", @handlePrevClick, false)
+		document.getElementById("next").addEventListener("click", @handleNextClick, false)		
 
 	buildDay: (element) ->
 		new TaskDay(element);
@@ -96,6 +97,22 @@ class TodoApp
 			task_object = {task_text: task, due_date: task_date}
 		    # send to server
 			app.activeInput.object.addTask(task_object)
+	
+	handlePrevClick: (e) ->
+		console.log(app.days[0])
+		console.log(new Date(app.days[0].date - 1000*60*60*24));
+		date = 	new Date(app.days[0].date - 1000*60*60*24);
+		
+		app.getDay(date)
+		
+	handleNextClick: (e) ->
+		# console.log(app.days[0])
+		# console.log(new Date(app.days[0].date - 1000*60*60*24));
+		console.log app.days[6].date
+		date = 	new Date(app.days[6].date.valueOf() + 1000*60*60*25);
+		console.log("next date:" + date)
+		app.getDay(date)		
+		
 			
 	getDay: (date) ->
 		
@@ -109,19 +126,24 @@ class TodoApp
 		#Prepend or append to Week
 		#day = new TaskDay(new_element)
 		
-		console.log(new Date(app.days[0].date - 1000*60*60*24));
+
 		# escape(date)
 		# encodeURIComponent()
 		# @days.unshift(day)
 		#if previous day
 			#day.disable()
 			#remove extra
-
-		date = 	new Date(app.days[0].date - 1000*60*60*24);
-			
-			
-		xhr = new XMLHttpRequest();
 		
+		
+		if date < new Date()
+			console.log("previous")
+			forward = false
+		else
+			console.log("next")
+			forward = true
+		
+			
+		xhr = new XMLHttpRequest();		
 
 		if date.getMonth() < 9
 			month_string = "0" + (date.getMonth() + 1)
@@ -141,21 +163,60 @@ class TodoApp
 		# xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 		xhr.onload = (e) ->
 			if @status is 200
-				console.log(@response)
-		# 
-		# request_string = "task_text=" + object.task_text + "&due_date=" + object.due_date.toString()
-		# 
+				# console.log(@response)
+				#@response is HTML for day
+				if forward
+					# app.days[0].remove()
+					app.days.shift().remove()
+			
+					week = document.querySelector(".week")
+			
+					temp_wrapper = document.createElement("div")
+					temp_wrapper.innerHTML = @response
+					day = new TaskDay(temp_wrapper.children[0])
+					# day.disable()
+			
+					week.appendChild(day.element)
+			
+					app.days.push(day)
+				
+				else
+					app.days[app.days.length - 1].remove()
+					app.days.pop()
+			
+					week = document.querySelector(".week")
+			
+					temp_wrapper = document.createElement("div")
+					temp_wrapper.innerHTML = @response
+					day = new TaskDay(temp_wrapper.children[0])
+					day.disable()
+			
+					week.insertBefore(day.element, app.days[0].element)
+			
+					app.days.unshift(day)
+				
+
 		xhr.send()
 
 
 class TaskDay
-	constructor: (@element) ->
+	constructor: (element) ->
+		# element.parent.removeChild(element)
+		@element = element
+		# @element.classList.add("dnone")
 		@tasklist = new TaskList(@element.querySelector(".tasklist"));
 		# 2012-09-29 00:00:00  -- 19
 		# temp_date = @tasklist.input.getAttribute("data-date");
 		@date = new Date(@tasklist.input.getAttribute("data-js-date"););
 		console.log("@date: " + @date);
 		@element.object = @
+		
+
+	remove: () ->
+		#TODO: Dirty check before removal
+		console.log(@element)
+		@element.parentElement.removeChild(@element)	
+		# @element.parent.removeChild(@element)
 
 	disable: () -> 
 		@element.classList.add("disabled")

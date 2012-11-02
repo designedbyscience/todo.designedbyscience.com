@@ -1,4 +1,3 @@
-
 require "sinatra"
 require "sinatra/reloader" 
 require "dm-core"

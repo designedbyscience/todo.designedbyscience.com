@@ -2,7 +2,7 @@
 	<h2><%= @time.strftime("%A") %></h2>
 	<h6><%= @time.strftime("%b %e") %></h6>
 	<div class="tasklist">
-		<input type="text" name="<%= @time.to_s %>_task" value="" class="task_entry" data-date="<%= @time.to_s %>">
+		<input type="text" name="<%= @time.to_s %>_task" value="" class="task_entry" data-date="<%= @time.to_s %>" data-js-date="<%= @time.rfc2822() %>">
 		<% for task in @tasks %>										
 			<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= task.task_text %></div>
 		<% end %>
