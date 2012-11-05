@@ -121,14 +121,24 @@
     };
 
     TodoApp.prototype.handleEnterKey = function(e) {
-      var task, task_date, task_object;
+      var task, task_column, task_date, task_object;
       if (e.keyCode === 13) {
         task = app.activeInput.value;
         task_date = app.activeInput.getAttribute("data-date");
-        task_object = {
-          task_text: task,
-          due_date: task_date
-        };
+        if (task_date != null) {
+          task_object = {
+            task_text: task,
+            due_date: task_date
+          };
+        } else {
+          task_column = app.activeInput.object.element.parentElement.id;
+          task_column = task_column.substring(8);
+          console.log(task_column);
+          task_object = {
+            task_text: task,
+            someday_column: task_column
+          };
+        }
         return app.activeInput.object.addTask(task_object);
       }
     };
@@ -313,7 +323,12 @@
           }
         }
       };
-      request_string = "task_text=" + object.task_text + "&due_date=" + object.due_date.toString();
+      if (object.due_date != null) {
+        request_string = "task_text=" + object.task_text + "&due_date=" + object.due_date.toString();
+      } else {
+        request_string = "task_text=" + object.task_text + "&someday_column=" + object.someday_column;
+      }
+      console.log(request_string);
       xhr.send(request_string.replace(/\s/g, "+"));
       return true;
     };

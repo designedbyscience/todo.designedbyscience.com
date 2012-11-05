@@ -36,6 +36,7 @@ class Task
   property :created_at,     DateTime
   property :updated_at,     DateTime
   property :push_count,     Integer, :default  => 0
+  property :someday_column, Integer, :default  => 0
   
   def self.push_tasks
     temptime = Time.now()
@@ -76,8 +77,8 @@ helpers do
     # @auth ||=  Rack::Auth::Basic::Request.new(request.env)
     # @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == ['admin', 'admin']    
     # 
-    session[:user]
-
+    #session[:user]
+    true
   end
 
 end
@@ -87,18 +88,24 @@ get "/" do
     
     @tasks_by_day= []
     for i in 0..6
-
-      # if Time.now().wday == 0
-        temptime = Time.now() - (Time.now().wday-i)*(60*60*24)
-      # else       #This is for weekdays
-        # temptime = Time.now() - (Time.now().wday-1-i)*(60*60*24)
-      # end
+      
+      temptime = Time.now() - (Time.now().wday-i)*(60*60*24)
       roundedtime = Time.new(temptime.year, temptime.month, temptime.day)
       tasks = Task.all(:due_date.gte => roundedtime-1, :due_date.lte => roundedtime + (60*60*24) -1, :order => [:completed.asc, :task_text.asc]  )
       if tasks
           @tasks_by_day.push(tasks) 
         else
           @tasks_by_day.push([])
+        end
+    end
+  
+    @someday_tasks = []
+    for i in 0..6
+      tasks = Task.all(:due_date => nil, :someday_column => i, :order => [:completed.asc, :task_text.asc] )
+      if tasks
+          @someday_tasks.push(tasks) 
+        else
+          @someday_tasks.push([])
         end
     end
   
@@ -157,7 +164,7 @@ post "/todo/" do
       
     else
       
-      task = Task.create(:task_text => params[:task_text], :due_date => params[:due_date])
+      task = Task.create(:task_text => params[:task_text], :due_date => params[:due_date], :someday_column => params[:someday_column])
       if task.saved?
         { "success" => true, "id" => task.id}.to_json
       else

@@ -94,7 +94,15 @@ class TodoApp
 			task = app.activeInput.value
 			
 			task_date = app.activeInput.getAttribute("data-date");
-			task_object = {task_text: task, due_date: task_date}
+			
+			if task_date?
+				task_object = {task_text: task, due_date: task_date}								
+			else
+				task_column = app.activeInput.object.element.parentElement.id 
+				task_column = task_column.substring(8);
+				console.log(task_column)
+				task_object = {task_text: task, someday_column: task_column}												
+
 		    # send to server
 			app.activeInput.object.addTask(task_object)
 	
@@ -279,8 +287,12 @@ class TaskList
 					task.set_id(obj.id)
 					spinner.remove()
 
-		request_string = "task_text=" + object.task_text + "&due_date=" + object.due_date.toString()
-
+		if object.due_date?
+			request_string = "task_text=" + object.task_text + "&due_date=" + object.due_date.toString()
+		else 
+			request_string = "task_text=" + object.task_text + "&someday_column=" + object.someday_column
+		
+		console.log(request_string)
 		xhr.send(request_string.replace(/\s/g, "+"))
 
 		true
