@@ -91,6 +91,7 @@ get "/" do
       
       temptime = Time.now() - (Time.now().wday-i)*(60*60*24)
       roundedtime = Time.new(temptime.year, temptime.month, temptime.day)
+      puts roundedtime
       tasks = Task.all(:due_date.gte => roundedtime-1, :due_date.lte => roundedtime + (60*60*24) -1, :order => [:completed.asc, :task_text.asc]  )
       if tasks
           @tasks_by_day.push(tasks) 
@@ -100,8 +101,8 @@ get "/" do
     end
   
     @someday_tasks = []
-    for i in 0..6
-      tasks = Task.all(:due_date => nil, :someday_column => i, :order => [:completed.asc, :task_text.asc] )
+    for j in 0..6
+      tasks = Task.all(:due_date => nil, :someday_column => j, :order => [:completed.asc, :task_text.asc] )
       if tasks
           @someday_tasks.push(tasks) 
         else

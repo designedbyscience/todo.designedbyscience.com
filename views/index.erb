@@ -58,15 +58,15 @@ for i in 0..6
 </div>
 <div style="clear:both;"></div><br><br>
 <h2>Someday</h2>
-<% for i in 0..6 %>
-<div id="someday_<%= i %>" class="someday day">
+<% for j in 0..6 %>
+<div id="someday_<%= j %>" class="someday day">
 	<div class="tasklist">
 		<input type="text" name="someday_task" value="" class="task_entry" id="someday_task">
-		<% for task in @someday_tasks[i] %>
+		<% for task in @someday_tasks[j] %>
 				<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= task.task_text %></div>
 		<% end %>
 		
-		<% for emptytask in 0..(10-@someday_tasks[i].length)  %>
+		<% for emptytask in 0..(10-@someday_tasks[j].length)  %>
 			<div class="task empty"></div>
 		<% end %>
 		
