@@ -129,7 +129,7 @@ html {
   border-bottom: 1px dotted #00ff39;
   overflow: hidden;
   line-height: 30px;
-  font-size: 0.8em;
+  font-size: 0.7em;
   cursor: pointer; }
   .task.empty {
     cursor: default; }
