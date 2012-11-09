@@ -102,7 +102,7 @@ get "/" do
   
     @someday_tasks = []
     for j in 0..6
-      tasks = Task.all(:due_date => nil, :someday_column => j, :order => [:completed.asc, :task_text.asc] )
+      tasks = Task.all(:due_date => nil, :someday_column => j, :completed => false, :order => [:completed.asc, :task_text.asc] )
       if tasks
           @someday_tasks.push(tasks) 
         else
