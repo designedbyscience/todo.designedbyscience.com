@@ -86,10 +86,11 @@ helpers do
     colon_index = text.index(":")
     
     if colon_index
-      "<span class='label'>" + text.insert(colon_index+1, "</span>") if 
+      "<span class='label'>" + text.insert(colon_index+1, "</span>")
     else
       text
     end
+  
   end
 
 end
