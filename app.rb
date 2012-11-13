@@ -83,9 +83,9 @@ helpers do
   
   def format_task(text)
     
+
     
-    
-    "<span class='label'>" + text.insert(text.index(':')+1, "</span>")
+    "<span class='label'>" + text.insert(text.index(':')+1, "</span>") if text.index(":")
   end
 
 end
