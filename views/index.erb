@@ -63,7 +63,7 @@ for i in 0..6
 	<div class="tasklist">
 		<input type="text" name="someday_task" value="" class="task_entry" id="someday_task">
 		<% for task in @someday_tasks[j] %>
-				<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= task.task_text %></div>
+				<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= format_task task.task_text %></div>
 		<% end %>
 		
 		<% for emptytask in 0..(10-@someday_tasks[j].length)  %>
