@@ -356,7 +356,7 @@
     Task.prototype.build = function(text) {
       this.element.classList.add("processing");
       this.element.classList.remove("empty");
-      return this.element.innerHTML = text;
+      return this.element.innerHTML = "<span class='label'>" + text.substring(0, text.indexOf(":") + 1) + "</span>" + text.substring(text.indexOf(":") + 1);
     };
 
     Task.prototype.set_id = function(id) {

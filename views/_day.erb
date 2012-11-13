@@ -4,7 +4,7 @@
 	<div class="tasklist">
 		<input type="text" name="<%= @time.to_s %>_task" value="" class="task_entry" data-date="<%= @time.to_s %>" data-js-date="<%= @time.rfc2822() %>">
 		<% for task in @tasks %>										
-			<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= task.task_text %></div>
+			<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= format_task task.task_text %></div>
 		<% end %>
 		
 		<% for emptytask in 0..(10-@tasks.length)  %>

@@ -80,6 +80,13 @@ helpers do
     session[:user]
     
   end
+  
+  def format_task(text)
+    
+    
+    
+    "<span class='label'>" + text.insert(text.index(':')+1, "</span>")
+  end
 
 end
 

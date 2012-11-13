@@ -44,7 +44,7 @@ for i in 0..6
 		<input type="text" name="day<%= i %>_task" value="" class="task_entry" id="day<%= i %>_task" data-date="<%= thisday.to_s %>" data-js-date="<%= thisday.rfc2822() %>">
 		<% if @tasks_by_day %>
 			<% for task in @tasks_by_day[i] %>										
-				<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= task.task_text %></div>
+				<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= format_task task.task_text %></div>
 			<% end %>
 			
 			<% for emptytask in 0..(10-@tasks_by_day[i].length)  %>

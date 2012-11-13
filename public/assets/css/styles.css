@@ -142,6 +142,12 @@ html {
     -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: 99;
     -webkit-animation-timing-function: linear; }
+  .task .label {
+    display: inline-block;
+    width: 9px;
+    overflow: hidden; }
+    .task .label:hover {
+      width: auto; }
 
 .user {
   margin-top: 10px;

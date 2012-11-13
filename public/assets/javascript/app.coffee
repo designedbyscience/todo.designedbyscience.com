@@ -311,8 +311,8 @@ class Task
 	
 	build: (text) ->
 		@element.classList.add("processing")
-		@element.classList.remove("empty")		
-		@element.innerHTML = text
+		@element.classList.remove("empty")
+		@element.innerHTML = "<span class='label'>" + text.substring(0, text.indexOf(":")+1) + "</span>" + text.substring(text.indexOf(":")+1)
 		
 	set_id: (id) ->
 		@element.setAttribute("data-id", id);
