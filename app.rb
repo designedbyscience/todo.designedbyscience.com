@@ -83,9 +83,13 @@ helpers do
   
   def format_task(text)
     
-
+    colon_index = text.index(":")
     
-    "<span class='label'>" + text.insert(text.index(':')+1, "</span>") if text.index(":")
+    if colon_index
+      "<span class='label'>" + text.insert(colon_index+1, "</span>") if 
+    else
+      text
+    end
   end
 
 end
