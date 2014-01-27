@@ -43,7 +43,8 @@ class Spinner
 class TodoApp
 	constructor: () ->
 		@console = document.querySelector(".console")
-		@days = (@buildDay day_element for day_element in document.querySelectorAll(".day"))
+		@days = (@buildDay day_element for day_element in document.querySelectorAll(".week .day"))
+		@somedays = (@buildDay day_element for day_element in document.querySelectorAll(".someday"))		
 
 		document.addEventListener("keyup", @handleEnterKey, false)
 		document.getElementById("previous").addEventListener("click", @handlePrevClick, false)
@@ -171,7 +172,7 @@ class TodoApp
 		# xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 		xhr.onload = (e) ->
 			if @status is 200
-				# console.log(@response)
+				console.log(@response)
 				#@response is HTML for day
 				if forward
 					# app.days[0].remove()
@@ -189,10 +190,17 @@ class TodoApp
 					app.days.push(day)
 				
 				else
-					app.days[app.days.length - 1].remove()
+					
+					# app.days[app.days.length - 1].remove()					
+					app.days[6].remove()										
 					app.days.pop()
 			
+					
+			
 					week = document.querySelector(".week")
+			
+					# week.lastElementChild.remove()
+			
 			
 					temp_wrapper = document.createElement("div")
 					temp_wrapper.innerHTML = @response
@@ -229,7 +237,7 @@ class TaskDay
 	disable: () -> 
 		@element.classList.add("disabled")
 		console.log("Disabling Task List")
-		@tasklist.input.setAttribute("disabled");
+		@tasklist.input.disabled = true;
 		# @tasklist.element.removeEventListener("click", @tasklist.handleClick, false)
 		removeTouchClickEventListener(@tasklist.element,@tasklist.handleClick);
 
