@@ -8,11 +8,14 @@ animateSpinner = () ->
 	i = 0
 	frames = ["/", "|", "\\", "-"]
 
-	setInterval(() ->
+
+	spinnerFrame = () ->
 		document.getElementById("spinner").innerHTML = frames[i];
 		i = if i<3 then i+1 else 0
 		(i)
-	, 100)
+		window.requestAnimationFrame(spinnerFrame)
+
+	window.requestAnimationFrame(spinnerFrame)
 
 ##Convienence Functions
 
