@@ -1,0 +1,9 @@
+
+<div class="day">
+	<div class="tasklist">
+			<% for task in @tasks %>										
+				<div class="task <%= "completed" if task.completed %>" data-id="<%= task.id %>"><%= format_task task.task_text %></div>
+			<% end %>			
+	</div>
+</div>
+

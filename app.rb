@@ -131,6 +131,12 @@ get "/login" do
   
 end
 
+get "/completed" do
+        @tasks = Task.all(:completed => true, :order => [:completed.asc, :task_text.asc]  )
+  
+  erb :completed, :layout => true
+end
+
 post "/login" do
   if user = User.first(:email => params[:user][:email])
     if user.password_hash == Armor.digest(params[:user][:password], user.password_salt)
