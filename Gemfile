@@ -1,6 +1,6 @@
-source :rubygems
-source :rubyforge
-source "http://gems.github.com"
+source 'https://rubygems.org'
+# source :rubyforge
+source "https://gems.github.com"
 
 gem 'sinatra'
 gem 'bcrypt-ruby'
@@ -8,6 +8,6 @@ gem 'sinatra-logger'
 gem 'datamapper'
 gem 'dm-sqlite-adapter'
 gem 'dm-timestamps'
-gem "pbkdf2"
+gem "armor"
 gem "sinatra-reloader" 
 gem 'rack-flash3'

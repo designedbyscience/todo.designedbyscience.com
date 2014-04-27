@@ -7,7 +7,7 @@ require "dm-timestamps"
 require "dm-sqlite-adapter"
 
 
-require "pbkdf2"
+require "armor"
 require "bcrypt"
 require "securerandom"
 
@@ -133,7 +133,7 @@ end
 
 post "/login" do
   if user = User.first(:email => params[:user][:email])
-    if user.password_hash == PBKDF2.new(:password => params[:user][:password], :salt => user.password_salt, :iterations => 1000).hex_string
+     if user.password_hash == Armor.digest(params[:user][:password], user.password_salt)
       session[:user] = user.token 
 
       if defined?(session[:redirect])

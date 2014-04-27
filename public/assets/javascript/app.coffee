@@ -107,18 +107,34 @@ class TodoApp
 			app.activeInput.object.addTask(task_object)
 	
 	handlePrevClick: (e) ->
-		console.log(app.days[0])
-		console.log(new Date(app.days[0].date - 1000*60*60*24));
-		date = 	new Date(app.days[0].date - 1000*60*60*24);
+		# console.log(app.days[0])
+		
+		# console.log(new Date(app.days[0].date - 1000*60*60*24));
+		# date = 	new Date(app.days[0].date - 1000*60*60*24);
+		
+		days = document.querySelectorAll(".week .tasklist input");
+		current_date = new Date(days[0].getAttribute("data-js-date"));
+		date = new Date(current_date - 1000*60*60*24);
+		
 		
 		app.getDay(date)
 		
 	handleNextClick: (e) ->
 		# console.log(app.days[0])
 		# console.log(new Date(app.days[0].date - 1000*60*60*24));
-		console.log app.days[6].date
-		date = 	new Date(app.days[6].date.valueOf() + 1000*60*60*25);
-		console.log("next date:" + date)
+		# console.log app.days[6].date
+		# date = 	new Date(app.days[6].date.valueOf() + 1000*60*60*25);
+		# console.log("next date:" + date)
+		
+		days = document.querySelectorAll(".week .tasklist input");
+		console.log(days[days.length-1].getAttribute("data-js-date"));
+		current_date = new Date(days[days.length-1].getAttribute("data-js-date"))
+		console.log("CURRENT DATE");
+		console.log(current_date);
+		date = new Date(current_date.valueOf() + (1000*60*60*24))
+		console.log("NEXT DATE");
+		console.log(date)
+		
 		app.getDay(date)		
 		
 			
@@ -229,7 +245,7 @@ class TaskDay
 	disable: () -> 
 		@element.classList.add("disabled")
 		console.log("Disabling Task List")
-		@tasklist.input.setAttribute("disabled");
+		@tasklist.input.setAttribute("disabled", "disabled");
 		# @tasklist.element.removeEventListener("click", @tasklist.handleClick, false)
 		removeTouchClickEventListener(@tasklist.element,@tasklist.handleClick);
 
