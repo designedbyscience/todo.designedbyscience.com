@@ -7,14 +7,16 @@
   var Spinner, Task, TaskDay, TaskList, TodoApp, addTouchClickEventListener, animateSpinner, app, removeTouchClickEventListener;
 
   animateSpinner = function() {
-    var frames, i;
+    var frames, i, spinnerFrame;
     i = 0;
     frames = ["/", "|", "\\", "-"];
-    return setInterval(function() {
+    spinnerFrame = function() {
       document.getElementById("spinner").innerHTML = frames[i];
       i = i < 3 ? i + 1 : 0;
-      return i;
-    }, 100);
+      i;
+      return window.requestAnimationFrame(spinnerFrame);
+    };
+    return window.requestAnimationFrame(spinnerFrame);
   };
 
   addTouchClickEventListener = function(element, func) {
@@ -54,7 +56,17 @@
       this.console = document.querySelector(".console");
       this.days = (function() {
         var _i, _len, _ref, _results;
-        _ref = document.querySelectorAll(".day");
+        _ref = document.querySelectorAll(".week .day");
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          day_element = _ref[_i];
+          _results.push(this.buildDay(day_element));
+        }
+        return _results;
+      }).call(this);
+      this.somedays = (function() {
+        var _i, _len, _ref, _results;
+        _ref = document.querySelectorAll(".someday");
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           day_element = _ref[_i];
@@ -185,6 +197,7 @@
       xhr.onload = function(e) {
         var day, temp_wrapper, week;
         if (this.status === 200) {
+          console.log(this.response);
           if (forward) {
             app.days.shift().remove();
             week = document.querySelector(".week");
@@ -194,7 +207,7 @@
             week.appendChild(day.element);
             return app.days.push(day);
           } else {
-            app.days[app.days.length - 1].remove();
+            app.days[6].remove();
             app.days.pop();
             week = document.querySelector(".week");
             temp_wrapper = document.createElement("div");
@@ -230,7 +243,7 @@
     TaskDay.prototype.disable = function() {
       this.element.classList.add("disabled");
       console.log("Disabling Task List");
-      this.tasklist.input.setAttribute("disabled", "disabled");
+      this.tasklist.input.disabled = true;
       return removeTouchClickEventListener(this.tasklist.element, this.tasklist.handleClick);
     };
 

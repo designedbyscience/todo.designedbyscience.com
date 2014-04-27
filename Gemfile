@@ -1,6 +1,5 @@
-source 'https://rubygems.org'
-# source :rubyforge
-source "https://gems.github.com"
+source "http://rubygems.org"
+source "http://gems.github.com"
 
 gem 'sinatra'
 gem 'bcrypt-ruby'
