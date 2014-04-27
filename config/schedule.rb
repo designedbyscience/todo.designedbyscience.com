@@ -2,7 +2,7 @@
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 # http://en.wikipedia.org/wiki/Cron
-
+env :PATH, '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
 # Example:
 #
 # set :output, "/path/to/my/cron_log.log"
@@ -21,6 +21,6 @@
 
 job_type :sinatra_script,  "cd :path && ruby scripts/:task"
 
-every 1.day, :at => '12:01 am' do
+every 1.day, :at => '3:01 am' do
   sinatra_script "push_tasks.rb"
 end

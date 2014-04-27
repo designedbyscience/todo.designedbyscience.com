@@ -251,7 +251,7 @@ class TaskList
 		tasks = (new Task(el) for el in @element.querySelectorAll(".task") when not el.classList.contains("empty"))
 		
 	handleClick: (e) ->
-		if e.target.classList.contains("task") && !e.target.classList.contains("empty")
+		if e.target.classList.contains("task") and !e.target.classList.contains("empty")
 			#Find task
 			task = e.target.object
 			task.toggle();
