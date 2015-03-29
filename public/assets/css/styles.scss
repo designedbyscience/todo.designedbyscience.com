@@ -223,6 +223,10 @@ pre{
 	
 	cursor: pointer;
 	
+	&.drag{
+		
+		position: absolute;
+	}
 
 	
 	&.empty{

@@ -131,6 +131,8 @@ html {
   line-height: 30px;
   font-size: 0.7em;
   cursor: pointer; }
+  .task.drag {
+    position: absolute; }
   .task.empty {
     cursor: default; }
   .task.completed {
