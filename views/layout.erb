@@ -56,7 +56,7 @@
 	<script type="text/javascript" charset="utf-8">
 	
 	
-		taskcount = <%= Task.all(:completed => false).count %>;
+		taskcount = <%= Task.all(:completed => false, :someday_column => nil).count %>;
 		
 		setTaskCount = function(i){
 			taskcount = taskcount + i;
