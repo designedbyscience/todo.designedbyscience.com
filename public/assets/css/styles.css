@@ -56,7 +56,7 @@ html {
   margin-left: auto;
   margin-right: auto;
   background-color: #000;
-  color: #00ff39;
+  color: #00FF39;
   font-family: Courier; }
   @media screen and (max-width: 920px) {
     .wrap {
@@ -70,14 +70,16 @@ html {
   width: 50%;
   float: right; }
 
+.week {
+  display: -webkit-flex;
+  display: flex; }
+
 .day {
-  float: left;
   box-sizing: border-box;
-  width: 14.2857142857143%;
-  border-right: 1px solid #00ff39; }
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  border-right: 1px solid #00FF39; }
   @media screen and (max-width: 1200px) {
-    .day {
-      width: 20%; }
     .day.ws_only {
       display: none; }
     .day:nth-child(6), .day.no_rb {
@@ -85,9 +87,9 @@ html {
   .day:last-child {
     border-right: none; }
   .day.disabled {
-    color: #666666; }
+    color: #666; }
     .day.disabled .task {
-      border-bottom: 1px dotted #666666; }
+      border-bottom: 1px dotted #666; }
   @media handheld and (max-width: 480px), screen and (max-device-width: 480px), screen and (max-width: 600px) {
     .day {
       float: none;
@@ -108,7 +110,7 @@ html {
   width: 90%;
   margin-right: .4em;
   margin-left: .4em;
-  color: #00ff39;
+  color: #00FF39;
   font-family: Courier;
   background: none;
   border: none;
@@ -117,16 +119,14 @@ html {
 @-webkit-keyframes rot {
   from {
     -webkit-transform: rotate(0deg); }
-
   to {
     -webkit-transform: rotate(360deg); } }
-
 .task {
   box-sizing: border-box;
   height: 2em;
   margin-right: .4em;
   margin-left: .4em;
-  border-bottom: 1px dotted #00ff39;
+  border-bottom: 1px dotted #00FF39;
   overflow: hidden;
   line-height: 30px;
   font-size: 0.7em;
@@ -164,3 +164,5 @@ html {
 
 .next {
   float: right; }
+
+/*# sourceMappingURL=styles.css.map */
