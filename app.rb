@@ -6,6 +6,8 @@ require "dm-migrations"
 require "dm-timestamps"
 require "dm-sqlite-adapter"
 
+require 'active_support'
+require 'active_support/core_ext'
 
 require "armor"
 require "bcrypt"
@@ -96,15 +98,14 @@ helpers do
 end
 
 get "/" do
-  protected!
+  # protected!
+  
+    beginning_of_week = Time.now.beginning_of_week(:sunday)
     
     @tasks_by_day= []
     for i in 0..6
-      
-      temptime = Time.now() - (Time.now().wday-i)*(60*60*24)
-      roundedtime = Time.new(temptime.year, temptime.month, temptime.day)
-      puts roundedtime
-      tasks = Task.all(:due_date.gte => roundedtime-1, :due_date.lte => roundedtime + (60*60*24) -1, :order => [:completed.asc, :task_text.asc]  )
+
+      tasks = Task.all(:due_date.gte => beginning_of_week.advance(days: i)-1, :due_date.lte => beginning_of_week.advance(days: i)  + (60*60*24) -1, :order => [:completed.asc, :task_text.asc]  )
       if tasks
           @tasks_by_day.push(tasks) 
         else
