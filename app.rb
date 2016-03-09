@@ -5,6 +5,7 @@ require "dm-validations"
 require "dm-migrations"
 require "dm-timestamps"
 require "dm-sqlite-adapter"
+require 'dm-serializer'
 
 require 'active_support'
 require 'active_support/core_ext'
@@ -12,7 +13,7 @@ require 'active_support/core_ext'
 require "armor"
 require "bcrypt"
 require "securerandom"
-
+require 'rack/contrib'
 require 'rack-flash'
 require 'json'
 
@@ -59,6 +60,7 @@ require_relative "config"
 
 use Rack::Session::Pool
 use Rack::Flash
+use Rack::PostBodyContentTypeParser
 
 helpers do
 
@@ -168,15 +170,21 @@ end
 
 
 get "/todos" do
-
+  content_type :json
+  
+  search_date = DateTime.parse(params[:date])
+  
+  tasks = Task.all(:due_date.gte => search_date, :due_date.lte => search_date.advance(days: 1), :order => [:completed.asc, :task_text.asc])
+  tasks.to_json
 end
 
 get "/todo/:id" do
 
 end
 
-post "/todo/" do
-  protected!  
+post "/todo/?" do
+    content_type :json
+  # protected!
     if params[:_method] == "put"
       if update_task(params)
         {"success" => true}.to_json
@@ -186,9 +194,9 @@ post "/todo/" do
       
     else
       
-      task = Task.create(:task_text => params[:task_text], :due_date => params[:due_date], :someday_column => params[:someday_column])
+      task = Task.create(:task_text => params[:title], :due_date => params[:dueDate], :someday_column => params[:somedayColumn], :completed => params[:complete])
       if task.saved?
-        { "success" => true, "id" => task.id}.to_json
+        task.to_json
       else
         #TODO Log error
         { "success" => false, "error" => "Not saved.."}.to_json
@@ -197,7 +205,7 @@ post "/todo/" do
 end
 
 post "/todo/:id" do
-    protected!
+  protected!
   task = Task.get(params[:id])
   if(task.completed)
     if task.update(:completed => false)
@@ -211,6 +219,16 @@ post "/todo/:id" do
     else
       { "success" => false, "error" => "Not saved.."}.to_json
     end
+  end
+end
+
+put "/todo" do
+  task = Task.get(params[:id])
+  
+  if task.update(:due_date => params[:dueDate], :someday_column => params[:somedayColumn], :completed => params[:complete])
+    { "success" => true, "id" => task.id}.to_json
+  else
+    { "success" => false, "error" => "Not saved.."}.to_json
   end
 end
 
@@ -236,7 +254,4 @@ get "/todo/day/:date" do
     @tasks = Task.all(:due_date.gte => @time-1, :due_date.lte => @time + (60*60*24) -1, :order => [:completed.asc, :task_text.asc]  )
 
     erb :_day, :layout => false
-  
-  
 end
-

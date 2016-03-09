@@ -48,16 +48,17 @@ table {
 html {
   background-color: #000; }
 
+body {
+  color: #00FF39;
+  font-family: Courier; }
+
 .wrap {
   position: relative;
   width: 95%;
   max-width: 1480px;
-  height: 600px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #000;
-  color: #00ff39;
-  font-family: Courier; }
+  background-color: #000; }
   @media screen and (max-width: 920px) {
     .wrap {
       width: 100%; } }
@@ -71,10 +72,9 @@ html {
   float: right; }
 
 .day {
-  float: left;
   box-sizing: border-box;
-  width: 14.2857142857143%;
-  border-right: 1px solid #00ff39; }
+  border-right: 1px solid #00FF39;
+  width: 14.2857142857%; }
   @media screen and (max-width: 1200px) {
     .day {
       width: 20%; }
@@ -85,12 +85,11 @@ html {
   .day:last-child {
     border-right: none; }
   .day.disabled {
-    color: #666666; }
+    color: #666; }
     .day.disabled .task {
-      border-bottom: 1px dotted #666666; }
+      border-bottom: 1px dotted #666; }
   @media handheld and (max-width: 480px), screen and (max-device-width: 480px), screen and (max-width: 600px) {
     .day {
-      float: none;
       width: 100%;
       border-right: none; } }
   .day h2 {
@@ -100,40 +99,58 @@ html {
     text-shadow: 0px 0px 20px #00cc2e; }
   .day h6 {
     text-align: center; }
-
-.tasklist.disabled .task {
-  color: #666; }
-.tasklist input {
-  box-sizing: border-box;
-  width: 90%;
-  margin-right: .4em;
-  margin-left: .4em;
-  color: #00ff39;
-  font-family: Courier;
-  background: none;
-  border: none;
-  outline: none; }
+  .day input {
+    box-sizing: border-box;
+    width: 90%;
+    margin-right: .4rem;
+    margin-left: .4rem;
+    color: #00FF39;
+    font-family: Courier;
+    background: none;
+    border: none;
+    outline: none; }
 
 @-webkit-keyframes rot {
   from {
     -webkit-transform: rotate(0deg); }
-
   to {
     -webkit-transform: rotate(360deg); } }
 
+h2 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1rem; }
+
+.complete {
+  text-decoration: line-through; }
+
+.week {
+  margin-bottom: 2rem; }
+
+.day-container {
+  display: flex; }
+
+.day {
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 0.5rem; }
+
+.dragover {
+  background-color: #00FF39; }
+
 .task {
+  display: block;
+  height: 1.4rem;
+  padding-top: 0.5rem;
   box-sizing: border-box;
-  height: 2em;
-  margin-right: .4em;
-  margin-left: .4em;
-  border-bottom: 1px dotted #00ff39;
+  border-bottom: 1px dotted #00FF39;
   overflow: hidden;
-  line-height: 30px;
-  font-size: 0.7em;
+  font-size: 0.7rem;
   cursor: pointer; }
   .task.empty {
     cursor: default; }
-  .task.completed {
+  .task.complete {
     text-decoration: line-through; }
   .task .processspinner {
     float: right;
@@ -142,16 +159,11 @@ html {
     -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: 99;
     -webkit-animation-timing-function: linear; }
-  .task .label {
-    display: inline;
-    width: 8px;
-    overflow: hidden; }
-  .task:hover .label {
-    width: auto; }
 
 .user {
   margin-top: 10px;
-  font-size: 10px; }
+  font-size: 10px;
+  color: #00FF39; }
 
 .console {
   font-size: 0.8em; }
@@ -159,8 +171,15 @@ html {
 .dnone {
   display: none; }
 
+.button {
+  position: absolute; }
+
 .previous {
-  float: left; }
+  left: 0.5rem;
+  margin-top: -0.5rem; }
 
 .next {
-  float: right; }
+  margin-top: -0.5rem;
+  right: 0.5rem; }
+
+/*# sourceMappingURL=styles.css.map */

@@ -15,3 +15,6 @@ partials
 #########
 *.sqlite
 *.db
+
+node_modules
+bundle.js

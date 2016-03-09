@@ -52,29 +52,29 @@ table {
 	border-spacing: 0;
 }
 
-
-
 html{
 	background-color: #000;
 }
 h2{
 	
 }
-				
+
+
+body {
+	color: $primary-text-color;
+	font-family: $primary-font-family;    
+}				
+
 .wrap{
 	position: relative;
 	width: 95%;
 	max-width: 1480px;
-	height: 600px;
 	margin-left: auto;
 	margin-right: auto;
 	
 	background-color: #000;
 	
-	color: $primary-text-color;
-	font-family: $primary-font-family;
-	
-	
+		
 	@media screen and (max-width: 920px) {
 	
 		width: 100%;
@@ -93,35 +93,24 @@ pre{
 	float: right;
 	
 }
-.day{
-	float: left;	
-	
+.day{		
 	box-sizing: border-box;
-	width: 14.2857142857143%;
-
-	
 	border-right: 1px solid $primary-text-color;
 	
+    width: 100px / 7px * 1%;
+    
 	@media screen and (max-width: 1200px) {
 		&{
 			width: 20%;
 		}
-		
-	//	&:first-child, &:last-child{
-	//			display: none;
-	//		}
-	//		
-	
+
 		&.ws_only{
 			display: none;
 		}
 		
-		
-		
 		&:nth-child(6), &.no_rb{
 			border-right: none;
-		}
-		
+		}		
 	}
 	
 	
@@ -132,19 +121,15 @@ pre{
 	&.disabled{
 		color: $primary-text-disabled-color;
 
-		
 		.task{
-				border-bottom: 1px dotted $primary-text-disabled-color;
+            border-bottom: 1px dotted $primary-text-disabled-color;
 		}
 	}
 	
  	@media handheld and (max-width: 480px), screen and (max-device-width: 480px), screen and (max-width: 600px) {
-		float: none;
-		width: 100%;
-		
+		width: 100%;		
 		border-right: none
-	}
-	
+	}	
 	
 	h2{
 		
@@ -159,27 +144,14 @@ pre{
 		text-align: center;
 		
 	}
-
-
-}			
-
-.tasklist{
-	
-	&.disabled{
-		
-		.task{
-			color: #666;
-		}
-	}
-	
-	
+    
 	
 	input{
 		box-sizing: border-box;	
 		width: 90%;
 		margin: {
-			right: .4em;
-			left: .4em;			
+			right: .4rem;
+			left: .4rem;			
 		}
 		
 		color: $primary-text-color;
@@ -188,7 +160,6 @@ pre{
 		border: none;
 		outline: none
 	}
-	
 }
 
 @-webkit-keyframes rot {
@@ -200,34 +171,58 @@ pre{
  }
 }
 
+h2 {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-size: 1rem;
+}
+
+.complete {
+	text-decoration: line-through;
+}
+
+.week {
+
+	margin-bottom: 2rem;
+}
+
+.day-container {
+    	display: flex;
+}
+
+.day {
+	flex-grow: 1;
+    flex-shrink: 1;
+	padding: 0.5rem;
+}
+
+.dragover {
+	background-color: $primary-text-color;
+}
 
 .task{
+	display: block;
+
+	height: 1.4rem;
+    
+    padding-top: 0.5rem;    	
 	
-	box-sizing: border-box;	
-	height: 2em;
-	margin: {
-		right: .4em;
-		left: .4em;			
-	}
-	
+    box-sizing: border-box;		
 	border-bottom: 1px dotted $primary-text-color;
 	
 	overflow:hidden;
-	line-height: 30px;
-	font-size: 0.7em;
+    font-size: 0.7rem;
 	
 	cursor: pointer;
-	
-
 	
 	&.empty{
 		cursor: default;
 	}
 	
-	&.completed{
+	&.complete{
 		text-decoration: line-through;
 	}
-	
 	
 	.processspinner{
 		float: right;
@@ -236,25 +231,13 @@ pre{
 		-webkit-animation-duration: 1s;
  		-webkit-animation-iteration-count: 99;
 		-webkit-animation-timing-function: linear;		
-	}
-	
-	
-	.label{
-		display: inline;
-		width: 8px;
-		overflow: hidden;
-		
-
-	}
-	
-	&:hover .label{
-	
-		width: auto;
 	}	
 }
+
 .user{
 	margin-top: 10px;
 	font-size: 10px;
+    	color: $primary-text-color;
 }
 
 .console{
@@ -265,10 +248,16 @@ pre{
 	display: none;
 }
 
+.button {
+    position: absolute;
+}
+
 .previous{
-	float: left;
+	left: 0.5rem;
+    margin-top: -0.5rem;
 }
 
 .next{
-	float: right;
+    margin-top: -0.5rem;    
+    right: 0.5rem;
 }
