@@ -1,0 +1,68 @@
+define(function (require, exports, module) {
+    "use strict";
+
+    var _ = require("underscore"),
+        Backbone = require("backbone"),
+        moment = require("moment"),
+        Task = require("./task.js");
+
+    // Hold dates, creates tasks
+    // Maybe should just be a view?
+    var Day = Backbone.Model.extend({
+        model: Task,
+        defaults: {
+            "models": []
+        },
+        initialize: function () {
+            _.each(this.get("models"), function (t) {
+                t.setCurrentDay(this);
+                this.listenTo(t, "change:currentDay", this.removeTask);
+            }.bind(this));
+        },
+        removeTask: function (taskToRemove) {
+            debugger;
+            console.log(taskToRemove.get("title"));
+
+            var tasks = this.get("models");
+
+            this.set("models", _.without(tasks, taskToRemove));
+        },
+        addTask: function (task) {
+            var tasks = _.clone(this.get("models"));
+
+            tasks.push(task);
+            this.listenTo(task, "change:currentDay", this.removeTask);
+            this.set("models", tasks);
+        },
+        isDisabled: function () {
+            return this.get("date") && moment(this.get("date")).isBefore(moment().startOf("day"));
+        },
+        createTask: function (text) {
+            if (text !== "") {
+                if (this.get("date")) {
+                    var newTask = new Task({
+                        title: text,
+                        dueDate: this.get("date")
+                    });
+                } else {
+                    var newTask = new Task({
+                        title: text,
+                        somedayColumn: this.get("somedayColumn"),
+                        dueDate: null
+                    });
+                }
+
+                newTask.setCurrentDay(this);
+
+                var tasks = _.clone(this.get("models"));
+                tasks.push(newTask);
+
+                this.listenTo(newTask, "change:currentDay", this.removeTask);
+
+                this.set({ "models": tasks });
+            }
+        }
+    });
+
+    module.exports = Day;
+});

@@ -46,25 +46,11 @@
                       `----'              
 </pre>
 
-		<%= yield %>
-		<div style="clear:both;"></div>
+
+
 		<div class="user">autodeployed :: current user: <%= User.first(:token => session[:user]).email if session[:user]%></div>
 	</div>
-	<!-- // <script src="assets/javascript/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script> -->
-	
-	<script src="assets/javascript/app.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" charset="utf-8">
-	
-	
-		taskcount = <%= Task.all(:completed => false).count %>;
-		
-		setTaskCount = function(i){
-			taskcount = taskcount + i;
-		}
-		
-		getTaskCount = function(){
-			return taskcount;
-		}
-	</script>
+	<%= yield %>	
+    <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
 </body>
 </html>
