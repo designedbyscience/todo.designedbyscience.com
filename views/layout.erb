@@ -22,7 +22,7 @@
 	</style>
 </head>
 <body>
-
+		<div class="user">autodeployed :: current user: <%= User.first(:token => session[:user]).email if session[:user]%></div>
 	<div class="wrap" >
 
 		<div class="console">
@@ -48,7 +48,7 @@
 
 
 
-		<div class="user">autodeployed :: current user: <%= User.first(:token => session[:user]).email if session[:user]%></div>
+
 	</div>
 	<%= yield %>	
     <script type="text/javascript" src="bundle.js" charset="utf-8"></script>

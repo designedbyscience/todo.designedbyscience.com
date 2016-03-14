@@ -58,7 +58,13 @@ html{
 h2{
 	
 }
-				
+
+
+body {
+	color: $primary-text-color;
+	font-family: $primary-font-family;    
+}				
+
 .wrap{
 	position: relative;
 	width: 95%;
@@ -68,8 +74,6 @@ h2{
 	
 	background-color: #000;
 	
-	color: $primary-text-color;
-	font-family: $primary-font-family;
 		
 	@media screen and (max-width: 920px) {
 	
@@ -89,35 +93,22 @@ pre{
 	float: right;
 	
 }
-.day{
-	
-	
+.day{		
 	box-sizing: border-box;
-	
-
-	
 	border-right: 1px solid $primary-text-color;
 	
 	@media screen and (max-width: 1200px) {
 		&{
 			width: 20%;
 		}
-		
-	//	&:first-child, &:last-child{
-	//			display: none;
-	//		}
-	//		
-	
+
 		&.ws_only{
 			display: none;
 		}
 		
-		
-		
 		&:nth-child(6), &.no_rb{
 			border-right: none;
-		}
-		
+		}		
 	}
 	
 	
@@ -128,19 +119,15 @@ pre{
 	&.disabled{
 		color: $primary-text-disabled-color;
 
-		
 		.task{
-				border-bottom: 1px dotted $primary-text-disabled-color;
+            border-bottom: 1px dotted $primary-text-disabled-color;
 		}
 	}
 	
  	@media handheld and (max-width: 480px), screen and (max-device-width: 480px), screen and (max-width: 600px) {
-		float: none;
-		width: 100%;
-		
+		width: 100%;		
 		border-right: none
-	}
-	
+	}	
 	
 	h2{
 		
@@ -155,27 +142,14 @@ pre{
 		text-align: center;
 		
 	}
-
-
-}			
-
-.tasklist{
-	
-	&.disabled{
-		
-		.task{
-			color: #666;
-		}
-	}
-	
-	
+    
 	
 	input{
 		box-sizing: border-box;	
 		width: 90%;
 		margin: {
-			right: .4em;
-			left: .4em;			
+			right: .4rem;
+			left: .4rem;			
 		}
 		
 		color: $primary-text-color;
@@ -184,7 +158,6 @@ pre{
 		border: none;
 		outline: none
 	}
-	
 }
 
 @-webkit-keyframes rot {
@@ -219,28 +192,23 @@ h2 {
 }
 
 .dragover {
-
 	background-color: $primary-text-color;
 }
 
 .task{
 	display: block;
 
-	line-height: 1rem;
-	height: 1rem;
-    	
-	box-sizing: border-box;	
+	height: 1.4rem;
+    
+    padding-top: 0.5rem;    	
 	
+    box-sizing: border-box;		
 	border-bottom: 1px dotted $primary-text-color;
 	
 	overflow:hidden;
-
-
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 	
 	cursor: pointer;
-	
-
 	
 	&.empty{
 		cursor: default;
@@ -250,7 +218,6 @@ h2 {
 		text-decoration: line-through;
 	}
 	
-	
 	.processspinner{
 		float: right;
 		width: 1em;
@@ -258,25 +225,13 @@ h2 {
 		-webkit-animation-duration: 1s;
  		-webkit-animation-iteration-count: 99;
 		-webkit-animation-timing-function: linear;		
-	}
-	
-	
-	.label{
-		display: inline;
-		width: 8px;
-		overflow: hidden;
-		
-
-	}
-	
-	&:hover .label{
-	
-		width: auto;
 	}	
 }
+
 .user{
 	margin-top: 10px;
 	font-size: 10px;
+    	color: $primary-text-color;
 }
 
 .console{

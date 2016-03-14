@@ -14,7 +14,7 @@ module.exports = function (grunt) {
                 "entry.js",
                 "*.json",
                 "views/**/*.js",
-                "models/**/*.jsx",
+                "models/**/*.js",
                 "test/**/*.js",
                 "test/**/*.jsx",
                 "!npm-shrinkwrap.json",
@@ -107,12 +107,12 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
-            design: {
-                options: {
-                    compress: {
-                        unused: false // This saves us about half an hour, losing 200 KB
-                    }
+            todo: {
+                files: {
+                    "bundle-min.js": ["bundle.js"]
                 }
+            
+                
             }
         },
         sass: {
@@ -162,12 +162,12 @@ module.exports = function (grunt) {
     grunt.registerTask("test", "Runs linter tests",
         ["checkDependencies", "concurrent:test"]
     );
-    grunt.registerTask("compile", "Bundles Design Space in Release mode, for all locales",
-        ["checkDependencies", "test", "clean:build", "i18n", "copy:img", "copy:htmlRelease",
-         "less", "webpack:compile", "uglify", "clean:i18n"]
+    grunt.registerTask("compile", "Builds todo manager front-end for production",
+        ["checkDependencies", "test", "clean:build",
+         "sass", "webpack:compile", "uglify", "clean:i18n"]
     );
-    grunt.registerTask("debug", "Bundles Design Space in Debug mode, for English only",
-        ["checkDependencies", "clean", "i18n", "copy:img", "copy:htmlDebug", "less", "concurrent:build"]
+    grunt.registerTask("debug", "Builds todo manager front-end for development and debugging",
+        ["checkDependencies", "clean", "sass", "concurrent:build"]
     );
     grunt.registerTask("default", "Runs linter tests", ["test"]);
 };

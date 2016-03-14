@@ -20,9 +20,6 @@ define(function (require, exports, module) {
             }.bind(this));
         },
         removeTask: function (taskToRemove) {
-            debugger;
-            console.log(taskToRemove.get("title"));
-
             var tasks = this.get("models");
 
             this.set("models", _.without(tasks, taskToRemove));
@@ -38,14 +35,16 @@ define(function (require, exports, module) {
             return this.get("date") && moment(this.get("date")).isBefore(moment().startOf("day"));
         },
         createTask: function (text) {
+            var newTask;
+            
             if (text !== "") {
                 if (this.get("date")) {
-                    var newTask = new Task({
+                    newTask = new Task({
                         title: text,
                         dueDate: this.get("date")
                     });
                 } else {
-                    var newTask = new Task({
+                    newTask = new Task({
                         title: text,
                         somedayColumn: this.get("somedayColumn"),
                         dueDate: null

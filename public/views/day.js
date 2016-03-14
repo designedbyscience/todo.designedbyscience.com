@@ -31,7 +31,7 @@ define(function (require, exports, module) {
             // event.preventDefault();
         },
         handleDragOver: function (event) {
-            if (window._dragTask.get("currentDay") !== this.model) {
+            if (window._dragTask.currentDay !== this.model && !this.model.isDisabled()) {
                 this.el.classList.add("dragover");
                 event.preventDefault();
             }
@@ -74,7 +74,7 @@ define(function (require, exports, module) {
                         dayMonthTitleEl = document.createElement("h2");
 
                     dayTitleEl.innerHTML = moment(this.model.get("date")).format("dddd");
-                    dayMonthTitleEl.innerHTML = moment(this.model.get("date")).format("MMMM Do");
+                    dayMonthTitleEl.innerHTML = moment(this.model.get("date")).format("MMM D");
 
                     el.appendChild(dayTitleEl);
                     el.appendChild(dayMonthTitleEl);

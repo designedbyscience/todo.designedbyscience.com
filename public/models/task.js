@@ -35,8 +35,6 @@ define(function (require, exports, module) {
             return this.get("dueDate") && moment(this.get("dueDate")).isBefore(moment().startOf("day"));
         },
         moveDay: function (newDay) {
-            var oldCurrentDay = this.get("currentDay");
-
             this.setCurrentDay(newDay);
 
             if (newDay.get("date")) {
