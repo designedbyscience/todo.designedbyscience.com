@@ -97,6 +97,8 @@ pre{
 	box-sizing: border-box;
 	border-right: 1px solid $primary-text-color;
 	
+    width: 100px / 7px * 1%;
+    
 	@media screen and (max-width: 1200px) {
 		&{
 			width: 20%;
@@ -187,7 +189,7 @@ h2 {
 
 .day {
 	flex-grow: 1;
-    flex-shrink: 0;
+    flex-shrink: 1;
 	padding: 0.5rem;
 }
 

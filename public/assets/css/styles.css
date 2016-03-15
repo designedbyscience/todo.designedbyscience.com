@@ -73,7 +73,8 @@ body {
 
 .day {
   box-sizing: border-box;
-  border-right: 1px solid #00FF39; }
+  border-right: 1px solid #00FF39;
+  width: 14.2857142857%; }
   @media screen and (max-width: 1200px) {
     .day {
       width: 20%; }
@@ -130,7 +131,7 @@ h2 {
 
 .day {
   flex-grow: 1;
-  flex-shrink: 0;
+  flex-shrink: 1;
   padding: 0.5rem; }
 
 .dragover {
