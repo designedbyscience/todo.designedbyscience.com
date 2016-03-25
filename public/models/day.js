@@ -6,8 +6,6 @@ define(function (require, exports, module) {
         moment = require("moment"),
         Task = require("./task.js");
 
-    // Hold dates, creates tasks
-    // Maybe should just be a view?
     var Day = Backbone.Model.extend({
         model: Task,
         defaults: {
