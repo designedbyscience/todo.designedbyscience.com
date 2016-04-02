@@ -100,7 +100,7 @@ helpers do
 end
 
 get "/" do
-  # protected!
+  protected!
   
     beginning_of_week = Time.now.beginning_of_week(:sunday)
     
@@ -170,6 +170,7 @@ end
 
 
 get "/todos" do
+  protected!
   content_type :json
   
   search_date = DateTime.parse(params[:date])
@@ -183,8 +184,9 @@ get "/todo/:id" do
 end
 
 post "/todo/?" do
+    protected!
     content_type :json
-  # protected!
+
     if params[:_method] == "put"
       if update_task(params)
         {"success" => true}.to_json
@@ -223,10 +225,12 @@ post "/todo/:id" do
 end
 
 put "/todo" do
+  protected!  
+  content_type :json  
   task = Task.get(params[:id])
   
   if task.update(:due_date => params[:dueDate], :someday_column => params[:somedayColumn], :completed => params[:complete])
-    { "success" => true, "id" => task.id}.to_json
+    task.to_json
   else
     { "success" => false, "error" => "Not saved.."}.to_json
   end
