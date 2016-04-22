@@ -61,7 +61,6 @@ var somedayGenerator = function () {
             return false;
         });
         
-
         days.push(new Day({
             somedayColumn: i,
             dueDate: null,
@@ -72,8 +71,6 @@ var somedayGenerator = function () {
     return days;
 };
 
-window.document.title = tasksByDay.length + " tasks :: todo.designedbyscience.com";
-
 var today = moment().startOf("day"),
     firstDayOfWeek = today.clone().startOf("week"),
     lastDayOfWeek = today.clone().endOf("week"),
@@ -83,6 +80,8 @@ var today = moment().startOf("day"),
     somedayWeek = new Week(somedayDays);
 
 var appView = new AppView();
+
+window.document.title = week.getTaskCount() + " tasks :: todo.designedbyscience.com";
 
 appView.weekView = new WeekView({ model: week });
 appView.weekView.somedayWeek = false;

@@ -33,6 +33,11 @@ define(function (require, exports, module) {
                 }
             });
         },
+        uncompletedTaskCount: function () {
+            return _.filter(this.get("models"), function (task) {
+                return !task.get("complete");
+            }).length;
+        },
         removeTask: function (taskToRemove) {
             var tasks = this.get("models");
 

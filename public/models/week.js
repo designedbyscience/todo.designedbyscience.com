@@ -7,6 +7,9 @@ define(function (require, exports, module) {
 
     var Week = Backbone.Collection.extend({
         model: Day,
+        getTaskCount: function () {
+          return this.reduce(function(memo, model) { return memo + model.uncompletedTaskCount() }, 0);            
+        },
         getPreviousDay: function () {
             // Look at first day in list and determine previous day
             
