@@ -141,7 +141,8 @@ h2 {
 
 .task {
   display: block;
-  height: 1.4rem;
+  min-height: 1.4rem;
+  line-height: 1rem;
   padding-top: 0.5rem;
   box-sizing: border-box;
   border-bottom: 1px dotted #00FF39;

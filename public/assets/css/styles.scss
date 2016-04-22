@@ -186,7 +186,6 @@ h2 {
 }
 
 .week {
-
 	margin-bottom: 2rem;
 }
 
@@ -207,7 +206,8 @@ h2 {
 .task{
 	display: block;
 
-	height: 1.4rem;
+	min-height: 1.4rem;
+    line-height: 1rem;
     
     padding-top: 0.5rem;    	
 	
