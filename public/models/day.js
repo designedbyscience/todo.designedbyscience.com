@@ -15,7 +15,11 @@ define(function (require, exports, module) {
             _.each(this.get("models"), function (t) {
                 t.setCurrentDay(this);
                 this.listenTo(t, "change:currentDay", this.removeTask);
+                this.listenTo(t, "change:complete", this.triggerCountChange);
             }.bind(this));
+        },
+        triggerCountChange: function () {
+            this.trigger("count");
         },
         fetchTasksFromServer: function () {
             var collection = new Backbone.Collection();

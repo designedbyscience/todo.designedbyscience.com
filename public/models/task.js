@@ -17,8 +17,6 @@ define(function (require, exports, module) {
         },
         url: "todo",
         initialize: function () {
-            this.listenTo(this.model, "change", this.render);
-            
             if (this.isNew()) {
                 this.save();
             }

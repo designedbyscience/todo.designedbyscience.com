@@ -27,9 +27,7 @@ define(function (require, exports, module) {
             }
         },
         render: function () {
-
             if (this.model) {
-                // debugger;            
                 if (this.model.get("complete")) {
                     this.el.classList.add("complete");
                 } else {

@@ -79,13 +79,9 @@ var today = moment().startOf("day"),
     somedayDays = somedayGenerator(),
     somedayWeek = new Week(somedayDays);
 
-var appView = new AppView();
-
-window.document.title = week.getTaskCount() + " tasks :: todo.designedbyscience.com";
-
-appView.weekView = new WeekView({ model: week });
-appView.weekView.somedayWeek = false;
-appView.somedayView = new WeekView({ model: somedayWeek });
-appView.somedayView.somedayWeek = true;
+var appView = new AppView({
+    weekView: new WeekView({ model: week }),
+    somedayView: new WeekView({ model: somedayWeek })
+});
 
 document.body.appendChild(appView.render().el);
