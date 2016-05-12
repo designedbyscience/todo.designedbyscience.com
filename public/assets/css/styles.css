@@ -153,6 +153,8 @@ h2 {
     cursor: default; }
   .task.complete {
     text-decoration: line-through; }
+  .task.postponed {
+    opacity: 0.3; }
   .task .processspinner {
     float: right;
     width: 1em;

@@ -226,6 +226,10 @@ h2 {
 	&.complete{
 		text-decoration: line-through;
 	}
+    
+    &.postponed{
+        opacity: 0.3;
+    }
 	
 	.processspinner{
 		float: right;

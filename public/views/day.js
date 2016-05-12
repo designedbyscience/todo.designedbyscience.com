@@ -101,7 +101,11 @@ define(function (require, exports, module) {
 
             taskList.innerHTML = "";
 
-            _.each(this.model.get("models"), function (task) {
+            var models = _.sortBy(this.model.get("models"), function (task) {
+                return !!task.get("postponed");
+            });
+
+            _.each(models, function (task) {
                 taskList.appendChild(new TaskView({ model: task }).render().el);
             });
 

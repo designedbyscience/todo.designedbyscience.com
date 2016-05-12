@@ -11,6 +11,7 @@ define(function (require, exports, module) {
         className: "task",
         events: {
             "click": "handleClick",
+            "mousedown": "handleMousedown",
             "dragstart": "handleDragStart"
         },
         handleDragStart: function (event) {
@@ -20,7 +21,21 @@ define(function (require, exports, module) {
         initialize: function () {
             this.listenTo(this.model, "change", this.render);
         },
+        handleMousedown: function () {
+            // Long click
+            this.cancelClickTimer = setTimeout(function () {
+                this.cancelClick = true;
+                this.model.set("postponed", true);
+            }.bind(this), 1000);
+        },
         handleClick: function () {
+            if (this.cancelClick) {
+                this.cancelClick = false;
+                return false;
+            }
+            
+            clearTimeout(this.cancelClickTimer);
+
             if (this.model && !this.model.isDisabled()) {
                 this.model.toggleComplete();
                 this.render();
@@ -33,9 +48,15 @@ define(function (require, exports, module) {
                 } else {
                     this.el.classList.remove("complete");
                 }
+                
+                if (this.model.get("postponed")) {
+                    this.el.classList.add("postponed");
+                } else {
+                    this.el.classList.remove("postponed");
+                }
 
                 this.el.setAttribute("draggable", "true");
-
+                this.el.setAttribute("data-postponed", this.model.get("postponed"));
                 this.el.setAttribute("data-duedate", this.model.get("dueDate"));
                 this.el.setAttribute("data-someday", this.model.get("somedayColumn"));
                 

@@ -13,7 +13,8 @@ define(function (require, exports, module) {
             "dueDate": moment().startOf("day"),
             "pushCount": 0,
             "complete": false,
-            "somedayColumn": -1
+            "somedayColumn": -1,
+            "postponed": false
         },
         url: "todo",
         initialize: function () {

@@ -16,10 +16,14 @@ define(function (require, exports, module) {
                 t.setCurrentDay(this);
                 this.listenTo(t, "change:currentDay", this.removeTask);
                 this.listenTo(t, "change:complete", this.triggerCountChange);
+                this.listenTo(t, "change:postponed", this.triggerChange);
             }.bind(this));
         },
         triggerCountChange: function () {
             this.trigger("count");
+        },
+        triggerChange: function () {
+            this.trigger("change");
         },
         fetchTasksFromServer: function () {
             var collection = new Backbone.Collection();
